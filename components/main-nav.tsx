@@ -12,7 +12,7 @@ export function MainNav({
   const params = useParams();
   const routes = [
     {
-      href: `/${params.storeId}/beallitasok`,
+      href: `/${params.storeId}/settings`,
       label: "Beállítások",
       active: pathname === `/${params.storeId}/settings`,
     },
