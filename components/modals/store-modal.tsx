@@ -11,6 +11,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useState } from "react";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -33,8 +34,9 @@ export const StoreModal = () => {
       setLoading(true);
       const response = await axios.post("api/stores", values);
       window.location.assign(`${response.data.id}`);
+      toast.success("Bolt létrehozva.");
     } catch (error) {
-      console.log(error);
+      toast.error("Hiba tortent");
     } finally {
       setLoading(false);
     }
@@ -42,8 +44,8 @@ export const StoreModal = () => {
 
   return (
     <Modal
-      title="Bolt létrehozása"
-      description="Adj hozzá egy új boltot, hogy kezelhesd a termékeidet"
+      title="Játékbolt létrehozása"
+      description="Adj hozzá egy új játékboltot, hogy kezelhesd a termékeidet"
       isOpen={storeModal.isOpen}
       onClose={storeModal.onClose}
     >
@@ -60,7 +62,7 @@ export const StoreModal = () => {
                     <FormControl>
                       <Input
                         disabled={loading}
-                        placeholder="Bolt neve"
+                        placeholder="Játék neve"
                         {...field}
                       />
                     </FormControl>
