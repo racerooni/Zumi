@@ -10,7 +10,15 @@ export function MainNav({
 }: React.HtmlHTMLAttributes<HTMLElement>) {
   const pathname = usePathname();
   const params = useParams();
+
   const routes = [
+    //Főoldal navigalas
+    {
+      href: `/${params.storeId}`,
+      label: "Főoldal",
+      active: pathname === `/${params.storeId}/settings`,
+    },
+    //beállítások menube navigalas
     {
       href: `/${params.storeId}/settings`,
       label: "Beállítások",
