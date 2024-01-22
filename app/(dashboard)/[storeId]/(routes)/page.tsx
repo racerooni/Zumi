@@ -10,7 +10,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
       id: params.storeId,
     },
   });
-  return <div>Jelenlegi játék: {store?.name}</div>;
+  return <div>Jelenlegi bolt: {store?.name}</div>;
 };
 
 export default DashboardPage;

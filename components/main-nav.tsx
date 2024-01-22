@@ -18,6 +18,11 @@ export function MainNav({
       label: "Főoldal",
       active: pathname === `/${params.storeId}/settings`,
     },
+    {
+      href: `/${params.storeId}/billboards`,
+      label: "Hirdetések",
+      active: pathname === `/${params.storeId}/billboard`,
+    },
     //beállítások menube navigalas
     {
       href: `/${params.storeId}/settings`,
