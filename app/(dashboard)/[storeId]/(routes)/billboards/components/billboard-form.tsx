@@ -28,6 +28,7 @@ import ImageUpload from "@/components/ui/image-upload";
 const formSchema = z.object({
   label: z.string().min(1),
   imageUrl: z.string().min(1),
+  price: z.string()
 });
 
 type BillboardFormValues = z.infer<typeof formSchema>;
@@ -61,6 +62,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
     defaultValues: initialData || {
       label: "",
       imageUrl: "",
+      price: "",
     },
   });
 
@@ -157,7 +159,24 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
                   <FormControl>
                     <Input
                       disabled={loading}
-                      placeholder="Hirdetésoldal neve"
+                      placeholder="Termék neve"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+                        <FormField
+              control={form.control}
+              name="price"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Ár</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={loading}
+                      placeholder="Termék ára"
                       {...field}
                     />
                   </FormControl>
