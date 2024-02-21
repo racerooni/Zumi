@@ -1,14 +1,17 @@
 "use client";
 
-import { Billboard } from "@prisma/client";
-import { Heading } from "@/components/ui/heading";
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Trash } from "lucide-react";
 import * as z from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import { Trash } from "lucide-react";
+import { Billboard } from "@prisma/client";
+import { useParams, useRouter } from "next/navigation";
+
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -17,20 +20,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import toast from "react-hot-toast";
-import axios from "axios";
-import { useParams, useRouter } from "next/navigation";
+import { Separator } from "@/components/ui/separator";
+import { Heading } from "@/components/ui/heading";
 import { AlertModal } from "@/components/modals/alert-modal";
-import { ApiAlert } from "@/components/ui/api-alert";
-import useOrigin from "@/hooks/use-origin";
 import ImageUpload from "@/components/ui/image-upload";
 
-interface BillboardFormProp {
-  initialData: Billboard | null;
-}
-
-//form validálás zod-al
 const formSchema = z.object({
   label: z.string().min(1),
   imageUrl: z.string().min(1),
@@ -38,11 +32,30 @@ const formSchema = z.object({
 
 type BillboardFormValues = z.infer<typeof formSchema>;
 
-export const BillboardForm: React.FC<BillboardFormProp> = ({ initialData }) => {
+interface BillboardFormProps {
+  initialData: Billboard | null;
+}
+
+export const BillboardForm: React.FC<BillboardFormProps> = ({
+  initialData,
+}) => {
   const params = useParams();
   const router = useRouter();
+
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const title = initialData
+    ? "Szerkeszd a hirdetésoldal nevét!"
+    : "Hozd létre a hirdetéseid oldalát!";
+  const description = initialData
+    ? "Szerkezd a hirdetésoldalt."
+    : "Adj hozzá egy új hirdetésoldalt.";
+  const toastMessage = initialData
+    ? "Hirdetésoldal frissítve."
+    : "Hirdetésoldal létrehozva..";
+  const action = initialData ? "Mentés" : "Kész";
+
   const form = useForm<BillboardFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
@@ -51,7 +64,6 @@ export const BillboardForm: React.FC<BillboardFormProp> = ({ initialData }) => {
     },
   });
 
-  // bolt frissítés kezelése
   const onSubmit = async (data: BillboardFormValues) => {
     try {
       setLoading(true);
@@ -63,17 +75,16 @@ export const BillboardForm: React.FC<BillboardFormProp> = ({ initialData }) => {
       } else {
         await axios.post(`/api/${params.storeId}/billboards`, data);
       }
-
-      toast.success(toastMessage);
       router.refresh();
-    } catch (error) {
-      toast.error("Sikertelen művelet.");
+      router.push(`/${params.storeId}/billboards`);
+      toast.success(toastMessage);
+    } catch (error: any) {
+      toast.error("Hiba történt.");
     } finally {
       setLoading(false);
     }
   };
 
-  // bolt törlés kezelése
   const onDelete = async () => {
     try {
       setLoading(true);
@@ -81,26 +92,15 @@ export const BillboardForm: React.FC<BillboardFormProp> = ({ initialData }) => {
         `/api/${params.storeId}/billboards/${params.billboardId}`
       );
       router.refresh();
-      router.push("/");
-      toast.success("Hirdetés törölve.");
-    } catch (error) {
-      toast.error("Hiba történt");
+      router.push(`/${params.storeId}/billboards`);
+      toast.success("Hirdetésoldal törölve.");
+    } catch (error: any) {
+      toast.error("Az összes kategóriát törölni kell.");
     } finally {
       setLoading(false);
       setOpen(false);
     }
   };
-
-  const title = initialData ? "Hirdetés szerkesztése" : "Hirdetés létrehozása";
-  const description = initialData
-    ? "Szerkeszd a hirdetésedet!"
-    : "Új hirdetés létrehozása";
-  const toastMessage = initialData
-    ? "Hirdetés frissítve!"
-    : "Hirdetés létrehozva!";
-  const action = initialData ? "Mentés" : "Létrehozás";
-
-  const origin = useOrigin();
 
   return (
     <>
@@ -114,8 +114,8 @@ export const BillboardForm: React.FC<BillboardFormProp> = ({ initialData }) => {
         <Heading title={title} description={description} />
         {initialData && (
           <Button
-            variant="destructive"
             disabled={loading}
+            variant="destructive"
             size="sm"
             onClick={() => setOpen(true)}
           >
@@ -123,7 +123,6 @@ export const BillboardForm: React.FC<BillboardFormProp> = ({ initialData }) => {
           </Button>
         )}
       </div>
-
       <Separator />
       <Form {...form}>
         <form
@@ -148,17 +147,17 @@ export const BillboardForm: React.FC<BillboardFormProp> = ({ initialData }) => {
               </FormItem>
             )}
           />
-          <div className="grid grid-cols-3 gap-8">
+          <div className="md:grid md:grid-cols-3 gap-8">
             <FormField
               control={form.control}
               name="label"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Label</FormLabel>
+                  <FormLabel>Név</FormLabel>
                   <FormControl>
                     <Input
                       disabled={loading}
-                      placeholder="Hirdetés címe"
+                      placeholder="Hirdetésoldal neve"
                       {...field}
                     />
                   </FormControl>
@@ -167,8 +166,7 @@ export const BillboardForm: React.FC<BillboardFormProp> = ({ initialData }) => {
               )}
             />
           </div>
-
-          <Button disabled={loading} type="submit">
+          <Button disabled={loading} className="ml-auto" type="submit">
             {action}
           </Button>
         </form>
@@ -176,5 +174,3 @@ export const BillboardForm: React.FC<BillboardFormProp> = ({ initialData }) => {
     </>
   );
 };
-
-export default BillboardForm;

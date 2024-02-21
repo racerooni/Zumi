@@ -4,53 +4,37 @@ import { NextResponse } from "next/server"
 
 export async function PATCH (
     req: Request,
-    {params} : {params: {storeId: string, billboardId: string}}
+    {params} : {params: {storeId: string}}
 ) {
     try {
         const {userId} = auth();
         const body = await req.json()
-        const {label, imageUrl} = body;
+        const {name} = body;
         if (!userId){
             return new NextResponse("Nincs bejelentkezve")
 
         }
-        if (!label){
-            return new NextResponse("Nincs cím")
+        if (!name){
+            return new NextResponse("Nincs név")
 
         }
 
-        if (!imageUrl){
-            return new NextResponse("Nincs kép megadva")
-
+        if (!params.storeId){
+            return new NextResponse("Nincs bolt megadva.")
         }
 
-        if (!params.billboardId){
-            return new NextResponse("BillboardId nincs megadva.")
-        }
-
-        const storeByUserId = await prismadb.store.findFirst({
+        const store = await prismadb.store.updateMany({
             where: {
                 id: params.storeId,
                 userId
-            }
-          })
-    
-          if (!storeByUserId) {
-            return new NextResponse("Unathorized", {status: 403})
-          }
-
-        const billboard = await prismadb.billboard.updateMany({
-            where: {
-                id: params.billboardId,
             },
             data: {
-                label,
-                imageUrl
+                name
             }
         })
-        return NextResponse.json(billboard)
+        return NextResponse.json(store)
     } catch(error){
-        console.log('BILLBOARD_PATCH', error)
+        console.log('STORE_PATCH', error)
         return new NextResponse("Internal error", {status: 500})
     }
 }
