@@ -18,10 +18,14 @@ export const BillboardClient: React.FC<BillboardClientProps> = ({ data }) => {
   return (
     <>
       <div className="flex items-center justify-between">
+        <div>
         <Heading
-          title={`Hirdetések: ${data?.length}`}
-          description="Hirdetések kezelése"
+          title={`Termékek: ${data?.length}`}
+          description="Termékek kezelése"
         />
+        <p className="text-gray-600 text-sm">Ahhoz, hogy szerkessz egy terméket, szimplán kattints a képre!</p>
+        </div>
+        
         <Button
           onClick={() => router.push(`/${params.storeId}/billboards/new`)}
         >

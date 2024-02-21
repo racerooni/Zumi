@@ -47,14 +47,14 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
   const [loading, setLoading] = useState(false);
 
   const title = initialData
-    ? "Szerkeszd a hirdetésoldal nevét!"
-    : "Hozd létre a hirdetéseid oldalát!";
+    ? "Szerkeszd a termék nevét!"
+    : "Hozd létre a termék oldalát!";
   const description = initialData
-    ? "Szerkezd a hirdetésoldalt."
-    : "Adj hozzá egy új hirdetésoldalt.";
+    ? "Szerkeszd a terméket."
+    : "Adj hozzá egy új terméket.";
   const toastMessage = initialData
-    ? "Hirdetésoldal frissítve."
-    : "Hirdetésoldal létrehozva..";
+    ? "Termék frissítve."
+    : "Termék hozzáadva.";
   const action = initialData ? "Mentés" : "Kész";
 
   const form = useForm<BillboardFormValues>({
@@ -78,7 +78,10 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
         await axios.post(`/api/${params.storeId}/billboards`, data);
       }
       router.refresh();
-      router.push(`/${params.storeId}/billboards`);
+      setTimeout(() => {
+        router.push(`/${params.storeId}/billboards`);
+      }, 500);
+      
       toast.success(toastMessage);
     } catch (error: any) {
       toast.error("Hiba történt.");
@@ -94,8 +97,11 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
         `/api/${params.storeId}/billboards/${params.billboardId}`
       );
       router.refresh();
-      router.push(`/${params.storeId}/billboards`);
-      toast.success("Hirdetésoldal törölve.");
+      setTimeout(() => {
+        router.push(`/${params.storeId}/billboards`);
+        toast.success("Termék törölve.");
+      }, 500);
+
     } catch (error: any) {
       toast.error("Az összes kategóriát törölni kell.");
     } finally {
