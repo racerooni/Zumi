@@ -10,15 +10,12 @@ export default async function SetupLayout({
 }: {
   children: React.ReactNode;
 }) {
-
   const { userId } = auth();
 
-
-  return <div className="relative bg-gray-100">
-    <HomeNavbar>
-      {userId ? <UserButton /> : <UserBtns />}
-    </HomeNavbar>
-    <Header />
-    {children}
-  </div>
+  return (
+    <div className="relative bg-gray-100">
+      <HomeNavbar>{userId ? <UserButton /> : <UserBtns />}</HomeNavbar>
+      {children}
+    </div>
+  );
 }
