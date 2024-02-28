@@ -3,13 +3,12 @@ import React from "react";
 import { motion } from "framer-motion";
 import Categories from "./categories";
 import bg from "@/public/Hexagon(1).svg";
-import Image from "next/image";
 import SearchBar from "./searchbar";
 
 export default function Header() {
   return (
     <div
-      className="h-screen md:h-[52vh] w-full bg-gray-100 relative flex flex-col items-center overflow-hidden bg-no-repeat bg-cover"
+      className="h-screen md:h-[52vh] w-full relative flex flex-col items-center overflow-hidden bg-no-repeat bg-cover"
       style={{
         backgroundImage: `url("${bg.src}")`,
       }}

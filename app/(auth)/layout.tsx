@@ -10,9 +10,8 @@ export default function AuthLayout({
     <div className={`flex items-center justify-center h-full w-full relative`}>
       <img src={bg.src} alt="" className="absolute w-full h-screen blur-sm" />
       <div className="shadow-xl shadow-black border-2 border-black/20">
-      {children}
+        {children}
       </div>
-      
     </div>
   );
 }
