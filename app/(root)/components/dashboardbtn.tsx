@@ -8,7 +8,7 @@ interface DashboardButtonProps {
 const DashboardButton: React.FC<DashboardButtonProps> = ({ href }) => {
   return (
     <Link href={href}>
-      <Button variant="ghost"></Button>
+      <Button>Boltjaim</Button>
     </Link>
   );
 };

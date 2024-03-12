@@ -14,20 +14,20 @@ export function MainNav({
   const routes = [
     //Főoldal navigalas
     {
-      href: `/${params.storeId}`,
+      href: `/dashboard/${params.storeId}`,
       label: "Főoldal",
-      active: pathname === `/${params.storeId}/settings`,
+      active: pathname === `/dashboard/${params.storeId}/settings`,
     },
     {
-      href: `/${params.storeId}/billboards`,
+      href: `/dashboard/${params.storeId}/billboards`,
       label: "Hirdetés oldalaid",
-      active: pathname === `/${params.storeId}/billboard`,
+      active: pathname === `/dashboard/${params.storeId}/billboard`,
     },
     //beállítások menube navigalas
     {
-      href: `/${params.storeId}/settings`,
+      href: `/dashboard/${params.storeId}/settings`,
       label: "Beállítások",
-      active: pathname === `/${params.storeId}/settings`,
+      active: pathname === `/dashboard/${params.storeId}/settings`,
     },
   ];
   return (

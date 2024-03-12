@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import prismadb from "@/lib/prismadb";
 import Navbar from "@/components/navbar";
 import { useRouter } from "next/navigation";
-export default async function DashboardLayout({
+export default async function DashboardNewLayout({
     children,
     params,
 }: {
@@ -18,7 +18,6 @@ export default async function DashboardLayout({
 
     return (
         <>
-            <Navbar />
             {children}
         </>
     );

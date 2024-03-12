@@ -79,9 +79,9 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       }
       router.refresh();
       setTimeout(() => {
-        router.push(`/${params.storeId}/billboards`);
+        router.push(`/dashboard/${params.storeId}/billboards`);
       }, 500);
-      
+
       toast.success(toastMessage);
     } catch (error: any) {
       toast.error("Hiba történt.");
@@ -98,7 +98,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       );
       router.refresh();
       setTimeout(() => {
-        router.push(`/${params.storeId}/billboards`);
+        router.push(`/dashboard/${params.storeId}/billboards`);
         toast.success("Termék törölve.");
       }, 500);
 
@@ -173,7 +173,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
                 </FormItem>
               )}
             />
-                        <FormField
+            <FormField
               control={form.control}
               name="price"
               render={({ field }) => (

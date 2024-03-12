@@ -13,7 +13,7 @@ export default function CarouselSlider() {
       <h2 className="text-4xl self-start">Egy kis ízelítő a kínálatunkból...</h2>
       <div className="flex gap-6 mt-16">
         {examples.map((product, i) => (
-          <Card className="border border-black/20">
+          <Card className="border border-black/20" key={i}>
             <CardHeader>
               <Image alt="xd" width={300} height={300} src={product.imageUrl} />
               <CardTitle>{product.name}</CardTitle>

@@ -3,8 +3,10 @@ import { motion } from "framer-motion";
 import { Search } from "lucide-react";
 import bee from "@/public/bee.png";
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 const SearchBar = () => {
-  const handleSubmit = () => {};
+  const [search, setSearch] = useState<string>('');
   return (
     <motion.form
       className="bg-white w-full md:w-1/2 lg:w-1/3 h-12 rounded-full flex items-center justify-between px-4 divide-gray-800 border border-black/60 relative"
@@ -16,16 +18,26 @@ const SearchBar = () => {
         alt="mehecske"
         width={50}
         height={50}
-        className="absolute -top-11 right-4"
+        className="absolute -top-11 right-4 animate-bounce"
       />
       <input
         type="text"
         className="font-xl outline-none accent-green-600 w-full"
         placeholder="Add meg egy termék nevét!"
+        onChange={(e) => {
+          setSearch(e.target.value)
+        }}
       />
-      <button className="ps-3 cursor-pointer" onClick={handleSubmit}>
-        <Search />
-      </button>
+      <Link href={{
+        pathname: "/market/",
+        query: {
+          search: search
+        }
+      }}>
+        <button type="submit" className="ps-3 cursor-pointer">
+          <Search />
+        </button>
+      </Link>
     </motion.form>
   );
 };
