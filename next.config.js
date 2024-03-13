@@ -5,7 +5,8 @@ const nextConfig = {
         domains: [
             "res.cloudinary.com",
             "images.unsplash.com",
-            "i.imgur.com"
+            "i.imgur.com",
+            's13emagst.akamaized.net'
         ]
     }
 
