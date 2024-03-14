@@ -9,7 +9,7 @@ const SearchBar = () => {
   const [search, setSearch] = useState<string>('');
   return (
     <motion.form
-      className="bg-white w-full md:w-1/2 lg:w-1/3 h-12 rounded-full flex items-center justify-between px-4 divide-gray-800 border border-black/60 relative"
+      className="bg-white w-[80%] md:w-1/2 lg:w-1/3 h-12 rounded-full flex items-center justify-between px-4 divide-gray-800 border border-black/60 relative"
       initial={{ y: -500 }}
       animate={{ y: 0 }}
     >

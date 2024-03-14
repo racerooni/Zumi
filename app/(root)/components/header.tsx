@@ -8,13 +8,13 @@ import SearchBar from "./searchbar";
 export default function Header() {
   return (
     <div
-      className="h-screen md:h-[52vh] w-full relative flex flex-col items-center overflow-hidden bg-no-repeat bg-cover"
+      className="h-[75vh] md:h-[55vh] w-full relative flex flex-col items-center overflow-hidden bg-no-repeat bg-cover shadow-2xl shadow-yellow-500 border border-black/10"
       style={{
         backgroundImage: `url("${bg.src}")`,
       }}
     >
       <div className="mb-12 mt-24">
-        <h1 className="text-5xl font-bold text-white inline-block text-transparent bg-clip-text">
+        <h1 className="text-5xl text-center font-bold text-white inline-block text-transparent bg-clip-text">
           Nézz körül te is!
         </h1>
       </div>

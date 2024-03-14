@@ -5,19 +5,20 @@ import { examples } from "@/lib/data";
 import Image from 'next/image';
 import { motion } from "framer-motion"
 import { Rating } from '@mui/material'
+import { Carrot, ShoppingCart } from 'lucide-react';
 
 
 export default function CarouselSlider() {
   return (
-    <motion.div className="px-8 mt-12 flex flex-col items-center" initial={{ opacity: 0 }}
+    <motion.div className="px-8 mt-6 flex flex-col items-center bg-gradient-to-b " initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}>
-      <h2 className="text-4xl self-start bg-yellow-500 -ms-12 py-2 ps-16 rounded-r-full w-1/3 border border-black/20">Egy kis ízelítő a kínálatunkból..</h2>
-      <div className="grid gap-6 mt-12 grid-cols-5">
+   
+      <div className="grid gap-6 mt-12 grid-cols-1 md:grid-cols-3 xl:grid-cols-5">
         {examples.map((product, i) => (
-          <div className="border border-black/20 rounded-xl p-2" key={i}>
+          <div className="border bg-white transition hover:scale-105 shadow-black border-black/20 rounded-xl p-2 relative flex flex-col justify-between max-w-[370px]" key={i}>
             <div>
               <div className='flex justify-center items-center h-[17rem] mb-4 object-contain overflow-hidden'>
-                <Image alt="xd" width={300} height={300} src={product.imageUrl} className="aspect-square w-[75%]" />
+                <Image alt="xd" width={300} height={300} src={product.imageUrl} className="aspect-square w-[75%] mix-blend-multiply" />
               </div>
               <div>{product.name}</div>
               <Rating
@@ -29,6 +30,11 @@ export default function CarouselSlider() {
             <div>
               <p>{product.price}</p>
             </div>
+            <div className="h-[2rem]"></div>
+            <button className="bg-green-600 h-[2rem] w-full absolute bottom-0 left-[50%] translate-x-[-50%] rounded-b-xl px-4 items-center flex justify-center text-md">
+              <p>Megrendelem</p>
+              <ShoppingCart/>
+            </button>
           </div>
         ))}
 

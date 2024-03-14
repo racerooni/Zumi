@@ -14,9 +14,8 @@ export function MainNav({
   const routes = [
     //Főoldal navigalas
     {
-      href: `/dashboard/${params.storeId}`,
+      href: `/`,
       label: "Főoldal",
-      active: pathname === `/dashboard/${params.storeId}/settings`,
     },
     {
       href: `/dashboard/${params.storeId}/billboards`,

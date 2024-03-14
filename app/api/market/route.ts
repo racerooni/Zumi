@@ -1,23 +1,27 @@
 import prismadb from "@/lib/prismadb";
-import { NextApiRequest, NextApiResponse } from "next";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: Request) {
+export async function GET(
+    req: NextRequest,
+    res: NextResponse
+  ) {
+    const url = new URL(req.url);
+    var query = url.searchParams.get('search')
+  
     try {
-
-        console.log(req)
-
-        const billboards = await prismadb.billboard.findMany({
-            where: {
-                label: {
-                    contains: ""
-                }
-            }
-        });
-
-        return NextResponse.json(billboards);
+        
+  
+      const billboard = await prismadb.billboard.findMany({
+        where: {
+          label: {
+            contains: `${query}`
+          }
+        }
+      });
+  
+      return NextResponse.json(billboard);
     } catch (error) {
-        console.log('[BILLBOARDS_GET]', error);
-        return new NextResponse("Internal error", { status: 500 });
+      console.log('[BILLBOARD_GET]', error);
+      return new NextResponse("Internal error", { status: 500 });
     }
-}
+  };

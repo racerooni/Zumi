@@ -6,6 +6,7 @@ import DashboardButton from "./components/dashboardbtn";
 import { redirect } from "next/navigation";
 
 
+
 export default async function SetupLayout({
   children,
 }: {
