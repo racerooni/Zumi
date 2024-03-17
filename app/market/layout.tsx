@@ -1,15 +1,17 @@
+import HomeNavbar from "../(root)/components/landingnav";
+import SearchBar from "../(root)/components/searchbar";
+
 export default async function MarketLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-
-
-
-
-    return (
-        <>
-            {children}
-        </>
-    );
+  return (
+    <>
+      <HomeNavbar>
+        <SearchBar />
+      </HomeNavbar>
+      {children}
+    </>
+  );
 }
