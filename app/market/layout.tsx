@@ -1,5 +1,5 @@
-import HomeNavbar from "../(root)/components/landingnav";
-import SearchBar from "../(root)/components/searchbar";
+
+import MarketNav from "./components/marketnav";
 
 export default async function MarketLayout({
   children,
@@ -8,9 +8,6 @@ export default async function MarketLayout({
 }) {
   return (
     <>
-      <HomeNavbar>
-        <SearchBar />
-      </HomeNavbar>
       {children}
     </>
   );
