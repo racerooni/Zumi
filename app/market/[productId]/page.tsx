@@ -3,9 +3,11 @@ import prismadb from '@/lib/prismadb'
 import axios from 'axios';
 import { redirect, useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import Loading from '../components/loading';
 
 export default function page() {
     const params = useParams();
+    const [isLoading, setisLoading] = useState(true)
     const productid: string = params.productId.toString();
     const [product, setProduct] = useState<{ id: string; storeId: string; label: string; imageUrl: string; price: string; createdAt: Date; updatedAt: Date; } | null>(null); // Adjust the type definition here
     useEffect(() => {
@@ -20,12 +22,25 @@ export default function page() {
                 console.error("Error fetching items:", error);
             }
         };
-
         fetchItems();
+        setTimeout(() => {
+            setisLoading(false);
+          }, 1000);
 
     }, [product]);
 
+    if (isLoading) {
+        return (
+            <Loading/>
+        )
+    }
+
     return (
-        <h1>{product?.id}</h1>
+        <div>
+            termek neve:
+            <h1>{product?.label}</h1>
+            termek ara: {product?.price}
+        </div>
+
     )
 }

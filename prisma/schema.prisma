@@ -27,11 +27,13 @@ model Products {
   label     String
   imageUrl  String
   price     Decimal
-  category Categories @relation("CategoryToProduct")
+  category String
+  categories Categories @relation("ProductCategories", fields: [category], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([storeId])
+  @@index([category])
   @@map("Billboard")
 }
 
@@ -39,7 +41,7 @@ model Categories {
   id       String @id @default(uuid())
   name     String
   imageUrl String
-  product Products[] @relation("CategoryToProduct")
+  product Products[] @relation("ProductCategories")
 
 
 }

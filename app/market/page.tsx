@@ -4,6 +4,11 @@ import { useSearchParams, useRouter, useParams, usePathname } from "next/navigat
 import { useCallback, useEffect, useState } from "react";
 import Item from "./components/items";
 import Link from "next/link";
+import { Input } from "@/components/ui/input"
+import Navbar from "@/components/navbar";
+import MarketNavBar from "./components/navbar";
+import ItemsDisplay from "./components/itemsdisplay";
+import Loading from "./components/loading";
 
 interface items {
   id: string;
@@ -19,6 +24,7 @@ const MarketPage = () => {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const [isLoading, setIsLoading] = useState(true)
 
 
   const [search, setSearch] = useState(searchParams.get("search") + "");
@@ -34,7 +40,7 @@ const MarketPage = () => {
     [searchParams]
   )
 
-  const handleOnChange = (e) => {
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value)
     router.push(pathname + '?' + createQueryString('search', e.target.value))
   }
@@ -54,15 +60,35 @@ const MarketPage = () => {
     };
 
     fetchItems();
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 500);
   }, [search]);
 
+  if (isLoading) {
+    return <Loading/ >
+  }
+
   return (
-    <div className="flex gap-4">
-      <input type="text" placeholder="KERESS" onChange={handleOnChange} />
-      {items?.map((item) => (
+    <>
+
+    <MarketNavBar>
+      <div>
+      <Input type="text" placeholder="Keresés.." onChange={handleOnChange} className="w-1/3" />
+      </div>
+      
+    </MarketNavBar>
+    <div className="flex h-full justify-center w-full">
+    <ItemsDisplay>
+    {items?.map((item) => (
         <Item key={item.id} item={item} />
       ))}
+    </ItemsDisplay>
     </div>
+   
+    
+    </>
+    
   );
 };
 

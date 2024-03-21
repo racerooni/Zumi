@@ -1,6 +1,4 @@
 
-import MarketNav from "./components/marketnav";
-
 export default async function MarketLayout({
   children,
 }: {
@@ -8,7 +6,10 @@ export default async function MarketLayout({
 }) {
   return (
     <>
-      {children}
+    <div className="bg-gray-50 h-screen w-full">
+    {children}
+    </div>
+
     </>
   );
 }
