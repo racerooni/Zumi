@@ -26,12 +26,11 @@ model store {
   id         String      @id @default(uuid())
   name       String
   userId     String
-  billboards Billboard[] @relation("StoreToBillboard")
+  products Products[] @relation("ProductToStore")
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
 }
 
-<<<<<<< HEAD
 model Products {
   id         String     @id @default(uuid())
   storeId    String
@@ -40,34 +39,16 @@ model Products {
   imageUrl   String
   price      Int
   category   String
-  categories Categories @relation("ProductCategories", fields: [category], references: [id])
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
 
   @@index([storeId])
   @@index([category])
   @@map("Products")
-=======
-model Billboard {
-  id        String   @id @default(uuid())
-  storeId   String
-  store     store    @relation("StoreToBillboard", fields: [storeId], references: [id])
-  label     String
-  imageUrl  String
-  price     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([storeId])
->>>>>>> parent of c357c9a (market page update)
 }
 
 model Categories {
   id       String     @id @default(uuid())
   name     String
   imageUrl String
-<<<<<<< HEAD
-  product  Products[] @relation("ProductCategories")
-=======
->>>>>>> parent of c357c9a (market page update)
 }
