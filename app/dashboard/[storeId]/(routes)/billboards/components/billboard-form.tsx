@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { Trash } from "lucide-react";
-import { Billboard } from "@prisma/client";
+import { Products } from "@prisma/client";
 import { useParams, useRouter } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
@@ -28,13 +28,13 @@ import ImageUpload from "@/components/ui/image-upload";
 const formSchema = z.object({
   label: z.string().min(1),
   imageUrl: z.string().min(1),
-  price: z.string()
+  price: z.number().min(10),
 });
 
 type BillboardFormValues = z.infer<typeof formSchema>;
 
 interface BillboardFormProps {
-  initialData: Billboard | null;
+  initialData: Products | null;
 }
 
 export const BillboardForm: React.FC<BillboardFormProps> = ({
@@ -62,7 +62,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
     defaultValues: initialData || {
       label: "",
       imageUrl: "",
-      price: "",
+      price: 0,
     },
   });
 

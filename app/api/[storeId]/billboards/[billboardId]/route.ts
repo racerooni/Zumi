@@ -12,7 +12,7 @@ export async function GET(
       return new NextResponse("Billboard id is required", { status: 400 });
     }
 
-    const billboard = await prismadb.billboard.findUnique({
+    const billboard = await prismadb.products.findUnique({
       where: {
         id: params.billboardId
       }
@@ -51,7 +51,7 @@ export async function DELETE(
       return new NextResponse("Unauthorized", { status: 405 });
     }
 
-    const billboard = await prismadb.billboard.delete({
+    const billboard = await prismadb.products.delete({
       where: {
         id: params.billboardId,
       }
@@ -103,7 +103,7 @@ export async function PATCH(
       return new NextResponse("Unauthorized", { status: 405 });
     }
 
-    const billboard = await prismadb.billboard.update({
+    const billboard = await prismadb.products.update({
       where: {
         id: params.billboardId,
       },
