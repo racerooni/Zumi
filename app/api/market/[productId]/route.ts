@@ -10,7 +10,7 @@ export async function GET(
             return new NextResponse("Nincs termék ID", { status: 400 });
         }
 
-        const billboards = await prismadb.products.findUnique({
+        const billboards = await prismadb.billboard.findUnique({
             where: {
                 id: params.productId
             }

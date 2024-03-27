@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs';
 
 import prismadb from '@/lib/prismadb';
-
+ 
 export async function POST(
   req: Request,
   { params }: { params: { storeId: string } }
@@ -41,16 +41,15 @@ export async function POST(
       return new NextResponse("Unauthorized", { status: 405 });
     }
 
-    const billboard = await prismadb.products.create({
+    const billboard = await prismadb.billboard.create({
       data: {
         label,
         imageUrl,
         price,
         storeId: params.storeId,
-        category: "none"
       }
     });
-
+  
     return NextResponse.json(billboard);
   } catch (error) {
     console.log('[BILLBOARDS_POST]', error);
@@ -67,12 +66,12 @@ export async function GET(
       return new NextResponse("Store id is required", { status: 400 });
     }
 
-    const billboards = await prismadb.products.findMany({
+    const billboards = await prismadb.billboard.findMany({
       where: {
         storeId: params.storeId
       }
     });
-
+  
     return NextResponse.json(billboards);
   } catch (error) {
     console.log('[BILLBOARDS_GET]', error);

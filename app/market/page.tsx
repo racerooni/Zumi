@@ -1,11 +1,9 @@
 "use client";
-import prismadb from "@/lib/prismadb";
 import axios from "axios";
-import Image from "next/image";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter, useParams, usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import Item from "./components/items";
-import Link from "next/link"
+import Link from "next/link";
 import { Input } from "@/components/ui/input"
 import Navbar from "@/components/navbar";
 import MarketNavBar from "./components/navbar";
@@ -50,6 +48,7 @@ const MarketPage = () => {
 
   useEffect(() => {
     const fetchItems = async () => {
+
       try {
         const result = await axios.get("/api/market", {
           params: { search },
@@ -59,6 +58,7 @@ const MarketPage = () => {
         console.error("Error fetching items:", error);
       }
     };
+
     fetchItems();
     setTimeout(() => {
       setIsLoading(false)
@@ -66,29 +66,29 @@ const MarketPage = () => {
   }, [search]);
 
   if (isLoading) {
-    return <Loading />
+    return <Loading/ >
   }
 
   return (
     <>
 
-      <MarketNavBar>
-        <div>
-          <Input type="text" placeholder="Keresés.." onChange={handleOnChange} className="w-1/3" />
-        </div>
-
-      </MarketNavBar>
-      <div className="flex h-full justify-center w-full">
-        <ItemsDisplay>
-          {items?.map((item) => (
-            <Item key={item.id} item={item} />
-          ))}
-        </ItemsDisplay>
+    <MarketNavBar>
+      <div>
+      <Input type="text" placeholder="Keresés.." onChange={handleOnChange} className="w-1/3" />
       </div>
-
-
+      
+    </MarketNavBar>
+    <div className="flex h-full justify-center w-full">
+    <ItemsDisplay>
+    {items?.map((item) => (
+        <Item key={item.id} item={item} />
+      ))}
+    </ItemsDisplay>
+    </div>
+   
+    
     </>
-
+    
   );
 };
 
