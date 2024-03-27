@@ -2,18 +2,15 @@
 import prismadb from "@/lib/prismadb";
 import axios from "axios";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 import Item from "./components/items";
-<<<<<<< HEAD
-import Link from "next/link";
+import Link from "next/link"
 import { Input } from "@/components/ui/input"
 import Navbar from "@/components/navbar";
 import MarketNavBar from "./components/navbar";
 import ItemsDisplay from "./components/itemsdisplay";
 import Loading from "./components/loading";
-=======
->>>>>>> parent of c357c9a (market page update)
 
 interface items {
   id: string;
@@ -25,7 +22,6 @@ interface items {
 }
 
 const MarketPage = () => {
-<<<<<<< HEAD
 
   const router = useRouter()
   const pathname = usePathname()
@@ -52,12 +48,6 @@ const MarketPage = () => {
   }
 
 
-=======
-  const params = useSearchParams();
-  const [search, setSearch] = useState(params.get("search"));
-  const [items, setItems] = useState<items[]>();
-
->>>>>>> parent of c357c9a (market page update)
   useEffect(() => {
     const fetchItems = async () => {
       try {
@@ -76,34 +66,29 @@ const MarketPage = () => {
   }, [search]);
 
   if (isLoading) {
-    return <Loading/ >
+    return <Loading />
   }
 
   return (
-<<<<<<< HEAD
     <>
 
-    <MarketNavBar>
-      <div>
-      <Input type="text" placeholder="Keresés.." onChange={handleOnChange} className="w-1/3" />
+      <MarketNavBar>
+        <div>
+          <Input type="text" placeholder="Keresés.." onChange={handleOnChange} className="w-1/3" />
+        </div>
+
+      </MarketNavBar>
+      <div className="flex h-full justify-center w-full">
+        <ItemsDisplay>
+          {items?.map((item) => (
+            <Item key={item.id} item={item} />
+          ))}
+        </ItemsDisplay>
       </div>
-      
-    </MarketNavBar>
-    <div className="flex h-full justify-center w-full">
-    <ItemsDisplay>
-    {items?.map((item) => (
-=======
-    <div className="flex gap-4">
-      {items?.map((item) => (
->>>>>>> parent of c357c9a (market page update)
-        <Item key={item.id} item={item} />
-      ))}
-    </ItemsDisplay>
-    </div>
-   
-    
+
+
     </>
-    
+
   );
 };
 
