@@ -4,7 +4,7 @@ import Image from "next/image";
 const Categories = async () => {
   const categories = await prismadb.categories.findMany({});
   return (
-    <ul className="grid grid-cols-2 md:grid-cols-4 mt-4 gap-2">
+    <ul className="grid grid-cols-3 md:grid-cols-6 mt-4 gap-2">
       {categories.map((category) => (
         <li
           key={category.id}

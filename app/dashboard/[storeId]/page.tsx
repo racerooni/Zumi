@@ -5,7 +5,7 @@ interface DashboardPageProps {
 }
 
 const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
-  const billboard = await prismadb.billboard.findMany({
+  const billboard = await prismadb.products.findMany({
     where: {
       id: params.storeId,
     },

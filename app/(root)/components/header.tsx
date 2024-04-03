@@ -8,7 +8,7 @@ import SearchBar from "./searchbar";
 export default function Header() {
   return (
     <div
-      className="h-[75vh] md:min-h-[55vh] lg:h-[45vh] w-full relative flex flex-col items-center overflow-hidden bg-no-repeat bg-cover shadow-2xl shadow-yellow-500 border-b border-black/10"
+      className="h-[82vh] md:min-h-[55vh] pb-2 lg:h-[45vh] w-full relative flex flex-col items-center overflow-hidden bg-no-repeat bg-cover shadow-2xl shadow-yellow-500 border-b border-black/10"
       style={{
         backgroundImage: `url("${bg.src}")`,
       }}

@@ -11,7 +11,7 @@ export async function GET(
     try {
         
   
-      const billboard = await prismadb.billboard.findMany({
+      const billboard = await prismadb.products.findMany({
         where: {
           label: {
             contains: `${query}`
