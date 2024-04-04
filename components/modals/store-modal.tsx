@@ -36,7 +36,7 @@ export const StoreModal = () => {
       window.location.assign(`${response.data.id}`);
       toast.success("Bolt létrehozva.");
     } catch (error) {
-      toast.error("Hiba tortent");
+      toast.error("Hiba törtent");
     } finally {
       setLoading(false);
     }
@@ -44,8 +44,8 @@ export const StoreModal = () => {
 
   return (
     <Modal
-      title="Játékbolt létrehozása"
-      description="Adj hozzá egy új játékboltot, hogy kezelhesd a termékeidet"
+      title="Bolt létrehozása"
+      description="Adj hozzá egy új boltot, hogy kezelhesd a termékeidet"
       isOpen={storeModal.isOpen}
       onClose={storeModal.onClose}
     >
@@ -62,7 +62,7 @@ export const StoreModal = () => {
                     <FormControl>
                       <Input
                         disabled={loading}
-                        placeholder="Játék neve"
+                        placeholder="Bolt neve"
                         {...field}
                       />
                     </FormControl>

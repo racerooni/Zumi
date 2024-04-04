@@ -2,12 +2,12 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { Trash } from "lucide-react";
-import { Billboard } from "@prisma/client";
+import { Categories, Products } from "@prisma/client";
 import { useParams, useRouter } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
@@ -24,17 +24,19 @@ import { Separator } from "@/components/ui/separator";
 import { Heading } from "@/components/ui/heading";
 import { AlertModal } from "@/components/modals/alert-modal";
 import ImageUpload from "@/components/ui/image-upload";
+import prismadb from "@/lib/prismadb";
 
 const formSchema = z.object({
   label: z.string().min(1),
   imageUrl: z.string().min(1),
-  price: z.string()
+  price: z.coerce.number().min(1),
+  category: z.string(),
 });
 
 type BillboardFormValues = z.infer<typeof formSchema>;
 
 interface BillboardFormProps {
-  initialData: Billboard | null;
+  initialData: Products | null;
 }
 
 export const BillboardForm: React.FC<BillboardFormProps> = ({
@@ -62,7 +64,8 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
     defaultValues: initialData || {
       label: "",
       imageUrl: "",
-      price: "",
+      price: 0,
+      category: "",
     },
   });
 
@@ -109,6 +112,17 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       setOpen(false);
     }
   };
+
+  const [categories, setCategories] = useState<Categories[]>()
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const result = await fetch("/api/categories")
+      const resultjson = await result.json();
+      setCategories(resultjson)
+    }
+    fetchCategories();
+  })
 
   return (
     <>
@@ -190,6 +204,11 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
                 </FormItem>
               )}
             />
+            <select>
+                {categories?.map((category) => (
+                  <option key={category.id} value={category.name}>{category.name}</option>
+                ))}
+            </select>
           </div>
           <Button disabled={loading} className="ml-auto" type="submit">
             {action}

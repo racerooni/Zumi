@@ -4,12 +4,13 @@ import axios from 'axios';
 import { redirect, useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import Loading from '../components/loading';
+import { Products } from '@prisma/client';
 
 export default function page() {
     const params = useParams();
     const [isLoading, setisLoading] = useState(true)
     const productid: string = params.productId.toString();
-    const [product, setProduct] = useState<{ id: string; storeId: string; label: string; imageUrl: string; price: string; createdAt: Date; updatedAt: Date; } | null>(null); // Adjust the type definition here
+    const [product, setProduct] = useState<{ id: string; storeId: string; label: string; imageUrl: string; price: string; createdAt: Date; updatedAt: Date; category: string } | null>(null); // Adjust the type definition here
     useEffect(() => {
         const fetchItems = async () => {
 
@@ -40,6 +41,7 @@ export default function page() {
             termek neve:
             <h1>{product?.label}</h1>
             termek ara: {product?.price}
+            kategoria: {product?.category}
         </div>
 
     )

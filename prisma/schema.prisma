@@ -11,6 +11,14 @@ datasource db {
   relationMode = "prisma"
 }
 
+model User {
+  id          String @id
+  name        String
+  city        String
+  phoneNumber String
+  email       String
+}
+
 model store {
   id        String     @id @default(uuid())
   name      String
@@ -21,16 +29,16 @@ model store {
 }
 
 model Products {
-  id        String   @id @default(uuid())
-  storeId   String
-  store     store    @relation("ProductToStore", fields: [storeId], references: [id])
-  label     String
-  imageUrl  String
-  price     Decimal
-  category String
+  id         String     @id @default(uuid())
+  storeId    String
+  store      store      @relation("ProductToStore", fields: [storeId], references: [id])
+  label      String
+  imageUrl   String
+  price      Int
+  category   String
   categories Categories @relation("ProductCategories", fields: [category], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
 
   @@index([storeId])
   @@index([category])
@@ -38,17 +46,15 @@ model Products {
 }
 
 model Categories {
-  id       String @id @default(uuid())
+  id       String     @id @default(uuid())
   name     String
   imageUrl String
-  product Products[] @relation("ProductCategories")
-
-
+  product  Products[] @relation("ProductCategories")
 }
 
 model Transactions {
   id        String   @id @default(uuid())
   currency  String
-  amount Decimal
+  amount    Decimal
   createdAt DateTime @default(now())
 }
