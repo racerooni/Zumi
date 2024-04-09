@@ -73,9 +73,9 @@ export default function StoreSwitcher({
       <PopoverContent className="w-[200px] p-0">
         <Command>
           <CommandList>
-            <CommandInput placeholder="Játék keresése..." />
-            <CommandEmpty>Nincs ilyen játékboltod.</CommandEmpty>
-            <CommandGroup heading="Játékok">
+            <CommandInput placeholder="Termék keresése..." />
+            <CommandEmpty>Nincs ilyen boltod.</CommandEmpty>
+            <CommandGroup heading="Termékek">
               {formattedItems.map((store) => (
                 <CommandItem
                   key={store.value}
@@ -106,7 +106,7 @@ export default function StoreSwitcher({
                 }}
               >
                 <PlusCircle className="mr-2 h-5 w-5" />
-                Játék hozzáadása
+                Bolt hozzáadása
               </CommandItem>
             </CommandGroup>
           </CommandList>

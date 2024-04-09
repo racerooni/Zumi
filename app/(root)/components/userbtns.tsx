@@ -7,12 +7,12 @@ export default function UserBtns() {
     <div className="flex flex-col md:flex-row gap-2">
       <div>
         <Link href="/sign-in">
-          <Button variant="secondary">Login</Button>
+          <Button variant="secondary">Bejelentkezés</Button>
         </Link>{" "}
-        or{" "}
+        vagy{" "}
       </div>
       <Button variant="secondary" className="border border-black/10">
-        Register
+        Regisztráció
       </Button>
     </div>
   );

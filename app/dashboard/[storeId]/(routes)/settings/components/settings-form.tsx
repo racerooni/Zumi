@@ -114,11 +114,11 @@ export const SettingsForm: React.FC<SettingsFormProp> = ({ initialData }) => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Játék:</FormLabel>
+                  <FormLabel>Termék:</FormLabel>
                   <FormControl>
                     <Input
                       disabled={loading}
-                      placeholder="Játék neve"
+                      placeholder="Termék neve"
                       {...field}
                     />
                   </FormControl>
