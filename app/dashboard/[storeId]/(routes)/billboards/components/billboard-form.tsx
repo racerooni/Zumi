@@ -25,6 +25,7 @@ import { Heading } from "@/components/ui/heading";
 import { AlertModal } from "@/components/modals/alert-modal";
 import ImageUpload from "@/components/ui/image-upload";
 import prismadb from "@/lib/prismadb";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const formSchema = z.object({
   label: z.string().min(1),
@@ -132,7 +133,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
         onConfirm={onDelete}
         loading={loading}
       />
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between ">
         <Heading title={title} description={description} />
         {initialData && (
           <Button
@@ -149,7 +150,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 w-full"
+          className="w-full bg-yellow-400"
         >
           <FormField
             control={form.control}
@@ -169,7 +170,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
               </FormItem>
             )}
           />
-          <div className="md:grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-3 gap-3">
             <FormField
               control={form.control}
               name="label"
@@ -204,11 +205,18 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
                 </FormItem>
               )}
             />
-            <select>
-                {categories?.map((category) => (
-                  <option key={category.id} value={category.name}>{category.name}</option>
-                ))}
-            </select>
+            <FormItem>
+              <Select>
+                <FormLabel>Kategória</FormLabel>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Kategória" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="light">Light</SelectItem>
+                </SelectContent>
+              </Select>
+            </FormItem>
+
           </div>
           <Button disabled={loading} className="ml-auto" type="submit">
             {action}

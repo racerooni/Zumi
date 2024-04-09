@@ -19,7 +19,7 @@ export function MainNav({
     },
     {
       href: `/dashboard/${params.storeId}/billboards`,
-      label: "Hirdetés oldalaid",
+      label: "Termékeid",
       active: pathname === `/dashboard/${params.storeId}/billboard`,
     },
     //beállítások menube navigalas
