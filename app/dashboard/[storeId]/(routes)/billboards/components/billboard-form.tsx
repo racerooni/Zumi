@@ -25,7 +25,13 @@ import { Heading } from "@/components/ui/heading";
 import { AlertModal } from "@/components/modals/alert-modal";
 import ImageUpload from "@/components/ui/image-upload";
 import prismadb from "@/lib/prismadb";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const formSchema = z.object({
   label: z.string().min(1),
@@ -55,9 +61,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
   const description = initialData
     ? "Szerkeszd a terméket."
     : "Adj hozzá egy új terméket.";
-  const toastMessage = initialData
-    ? "Termék frissítve."
-    : "Termék hozzáadva.";
+  const toastMessage = initialData ? "Termék frissítve." : "Termék hozzáadva.";
   const action = initialData ? "Mentés" : "Kész";
 
   const form = useForm<BillboardFormValues>({
@@ -105,7 +109,6 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
         router.push(`/dashboard/${params.storeId}/billboards`);
         toast.success("Termék törölve.");
       }, 500);
-
     } catch (error: any) {
       toast.error("Az összes kategóriát törölni kell.");
     } finally {
@@ -114,16 +117,16 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
     }
   };
 
-  const [categories, setCategories] = useState<Categories[]>()
+  const [categories, setCategories] = useState<Categories[]>();
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const result = await fetch("/api/categories")
+      const result = await fetch("/api/categories");
       const resultjson = await result.json();
-      setCategories(resultjson)
-    }
+      setCategories(resultjson);
+    };
     fetchCategories();
-  })
+  });
 
   return (
     <>
@@ -148,10 +151,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       </div>
       <Separator />
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full bg-yellow-400"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
           <FormField
             control={form.control}
             name="imageUrl"
@@ -212,11 +212,15 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
                   <SelectValue placeholder="Kategória" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="light">Light</SelectItem>
+                  <SelectItem value="1">Lakás</SelectItem>
+                  <SelectItem value="2">Elektronika</SelectItem>
+                  <SelectItem value="3">Sport</SelectItem>
+                  <SelectItem value="4">Ruházat</SelectItem>
+                  <SelectItem value="5">Otthon</SelectItem>
+                  <SelectItem value="6">Egyéb</SelectItem>
                 </SelectContent>
               </Select>
             </FormItem>
-
           </div>
           <Button disabled={loading} className="ml-auto" type="submit">
             {action}
