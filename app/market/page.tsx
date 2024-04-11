@@ -9,6 +9,9 @@ import Navbar from "@/components/navbar";
 import MarketNavBar from "./components/navbar";
 import ItemsDisplay from "./components/itemsdisplay";
 import Loading from "./components/loading";
+import logo from "@/public/zumilogo.png";
+import Image from "next/image";
+
 
 interface items {
   id: string;
@@ -73,10 +76,21 @@ const MarketPage = () => {
     <>
 
     <MarketNavBar>
+      <Link href="/">
       <div>
-      <Input type="text" placeholder="Keresés.." onChange={handleOnChange} className="w-1/3" />
+      <Image
+            src={logo.src}
+            width={150}
+            height={95}
+            alt="logo"
+            className=""
+          />
       </div>
-      
+      </Link>
+      <div className="w-full md:w-1/3">
+      <Input type="text" placeholder="Keresés.." onChange={handleOnChange} className="w-full" />
+      </div>
+      <div></div>
     </MarketNavBar>
     <div className="flex h-full justify-center w-full">
     <ItemsDisplay>
