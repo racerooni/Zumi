@@ -5,7 +5,7 @@ import { examples } from "@/lib/data";
 import Image from 'next/image';
 import { motion } from "framer-motion"
 import { Rating } from '@mui/material'
-import { Carrot, ShoppingCart } from 'lucide-react';
+import { Carrot, Eye, ShoppingCart } from 'lucide-react';
 
 
 export default function CarouselSlider() {
@@ -31,10 +31,10 @@ export default function CarouselSlider() {
               <p>{product.price}</p>
             </div>
             <div className="h-[2rem]"></div>
-            <button className="bg-green-600 h-[2rem] w-full absolute bottom-0 left-[50%] translate-x-[-50%] rounded-b-xl px-4 items-center flex justify-center text-md">
-              <p>Megrendelem</p>
-              <ShoppingCart/>
-            </button>
+            <button className="bg-yellow-400 h-[2rem] w-full absolute bottom-0 left-[50%] translate-x-[-50%] rounded-b-xl px-4 items-center flex justify-center text-md gap-2">
+          <p>Megtekintem</p>
+          <Eye />
+        </button>
           </div>
         ))}
 

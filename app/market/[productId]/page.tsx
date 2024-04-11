@@ -5,6 +5,7 @@ import { redirect, useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import Loading from '../components/loading';
 import { Products } from '@prisma/client';
+import { error } from 'console';
 
 export default function page() {
     const params = useParams();
@@ -23,10 +24,14 @@ export default function page() {
                 console.error("Error fetching items:", error);
             }
         };
-        fetchItems();
-        setTimeout(() => {
-            setisLoading(false);
-          }, 1000);
+        try{
+            fetchItems();
+            setisLoading(true)
+        } catch (error: any) {
+            console.log(error)
+        } finally {
+            setisLoading(false)
+        }
 
     }, [product]);
 
@@ -37,7 +42,7 @@ export default function page() {
     }
 
     return (
-        <div>
+        <div className="w-screen h-screen">
             termek neve:
             <h1>{product?.label}</h1>
             termek ara: {product?.price}
