@@ -20,16 +20,14 @@ export default function CarouselSlider() {
               <div className='flex justify-center items-center h-[17rem] mb-4 object-contain overflow-hidden'>
                 <Image alt="xd" width={300} height={300} src={product.imageUrl} className="aspect-square w-[75%] mix-blend-multiply" />
               </div>
+              <div className="relative h-[6rem]">
               <div>{product.name}</div>
-              <Rating
-                name="simple-controlled"
-                readOnly
-                value={product.rating}
-              />
             </div>
-            <div>
+            <div className="absolute bottom-8">
               <p>{product.price}</p>
             </div>
+              </div>
+              
             <div className="h-[2rem]"></div>
             <button className="bg-yellow-400 h-[2rem] w-full absolute bottom-0 left-[50%] translate-x-[-50%] rounded-b-xl px-4 items-center flex justify-center text-md gap-2">
           <p>Megtekintem</p>

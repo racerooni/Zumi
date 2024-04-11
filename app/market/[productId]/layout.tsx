@@ -7,7 +7,7 @@ export default async function MarketLayout({
 }) {
     return (
         <>
-        <div className="h-screen w-full flex justify-center items-center p-4 relative">
+        <div className="h-screen w-full flex justify-center p-4 relative">
         <BackButton/>
         {children}
         </div>

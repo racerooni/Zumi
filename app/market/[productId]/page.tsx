@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import Loading from '../components/loading';
 import { Products } from '@prisma/client';
 import { error } from 'console';
+import Image from 'next/image';
 
 export default function page() {
     const params = useParams();
@@ -41,12 +42,15 @@ export default function page() {
         )
     }
 
+
     return (
-        <div className="w-screen h-screen">
-            termek neve:
-            <h1>{product?.label}</h1>
-            termek ara: {product?.price}
-            kategoria: {product?.category}
+        <div className="container bg-yellow-300 flex">
+            <div className="w-1/2 h-1/2 flex justify-center items-center">
+                <Image src={product?.imageUrl!} alt='Termék kép' width={350} height={350} className="object object-contain"/>
+            </div>
+            <div>
+            <p className="text-3xl">{product?.label!}</p>
+            </div>
         </div>
 
     )
