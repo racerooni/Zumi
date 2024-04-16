@@ -29,7 +29,7 @@ export const AlertModal: React.FC<AlertModalProps> = ({
 
   return (
     <Modal
-      title="Biztos, hogy torolni szeretnéd?"
+      title="Biztos, hogy törölni szeretnéd?"
       description="A művelet nem visszavonható."
       isOpen={isOpen}
       onClose={onClose}

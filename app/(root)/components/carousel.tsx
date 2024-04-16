@@ -38,7 +38,11 @@ const CarouselSlider: React.FC<CarouselProps> = ({ products }) => {
                 <div className="text-xl font-semibold">{product.label}</div>
               </div>
               <div>
-                <p>{product.price} Ft</p>
+                <p>{product.price.toLocaleString(
+                  undefined, // leave undefined to use the visitor's browser 
+                  // locale or a string like 'en-US' to override it.
+                  { minimumFractionDigits: 0 }
+                )} Ft</p>
               </div>
               <div className="h-[2rem]"></div>
               <button className="bg-yellow-400 h-[2rem] w-full absolute bottom-0 left-[50%] translate-x-[-50%] rounded-b-xl px-4 items-center flex justify-center text-md gap-2">
