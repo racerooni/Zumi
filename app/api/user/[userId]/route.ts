@@ -1,23 +1,57 @@
+import prismadb from "@/lib/prismadb";
+import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-import { auth, useAuth } from '@clerk/nextjs';
 
-export async function GET(
+export async function POST(
     req: Request,
-    { params }: { params: { userId: string } }
-) {
-    const { userId } = useAuth();
-
+    { params }: { params: { storeId: string } }
+  ) {
     try {
-        if (!params.userId) {
-            return new NextResponse("Rossz felhasználó ID", { status: 400 });
-        }
-        else if (params.userId != userId) {
-            return new NextResponse("Hibás felhasználói hozzáférés!", { status: 400 })
-        }
+      const { userId } = auth();
+      if (!userId) {
+        throw new NextResponse('Érvénytelen')
+      }
+  
+      const body = await req.json();
+  
+      const { name, city, phoneNumber, email } = body;
+  
+  
 
-        return NextResponse.json("");
+  
+      const billboard = await prismadb.user.create({
+        data: {
+          id: userId,
+          name,
+          city,
+          phoneNumber,
+          email
+        }
+      });
+    
+      return NextResponse.json(billboard);
     } catch (error) {
-        console.log('[USER_GET]', error);
-        return new NextResponse("Internal error", { status: 500 });
+      console.log('[BILLBOARDS_POST]', error);
+      return new NextResponse("Internal error", { status: 500 });
     }
-};
+  };
+
+  export async function GET(
+    req: Request,
+    { params }: { params: { storeId: string } }
+  ) {
+    try {
+      const {userId} = auth();
+  
+      const user = await prismadb.user.findUnique({
+        where: {
+          id: `${userId}`
+        }
+      });
+    
+      return NextResponse.json(user);
+    } catch (error) {
+      console.log('[BILLBOARDS_GET]', error);
+      return new NextResponse("Internal error", { status: 500 });
+    }
+  };
