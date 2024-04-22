@@ -120,16 +120,6 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
     }
   };
 
-  const [categories, setCategories] = useState<Categories[]>();
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const result = await fetch("/api/categories");
-      const resultjson = await result.json();
-      setCategories(resultjson);
-    };
-    fetchCategories();
-  });
 
   return (
     <>

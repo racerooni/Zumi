@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs';
 
 import prismadb from '@/lib/prismadb';
+import { Description } from '@radix-ui/react-dialog';
  
 export async function POST(
   req: Request,
@@ -12,7 +13,7 @@ export async function POST(
 
     const body = await req.json();
 
-    const { label, imageUrl, price, category } = body;
+    const { label, imageUrl, price, category, description } = body;
 
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 403 });
@@ -47,7 +48,8 @@ export async function POST(
         imageUrl,
         price,
         storeId: params.storeId,
-        category
+        category,
+        description,
       }
     });
   
