@@ -1,4 +1,4 @@
-import bg from "@/public/bg.jpg";
+import bg from "@/public/26292.jpg";
 import Image from "next/image";
 
 export default function AuthLayout({

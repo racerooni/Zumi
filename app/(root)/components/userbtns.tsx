@@ -11,9 +11,12 @@ export default function UserBtns() {
         </Link>{" "}
         vagy{" "}
       </div>
+      <Link href="/sign-up">
       <Button variant="secondary" className="border border-black/10">
         Regisztráció
       </Button>
+      </Link>
+
     </div>
   );
 }

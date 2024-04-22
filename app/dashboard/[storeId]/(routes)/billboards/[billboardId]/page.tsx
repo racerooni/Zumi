@@ -13,10 +13,12 @@ const BillboardPage = async ({
     },
   });
 
+  const categories = await prismadb.categories.findMany()
+
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <BillboardForm initialData={billboard} />
+        <BillboardForm initialData={billboard} Categories={categories} />
       </div>
     </div>
   );

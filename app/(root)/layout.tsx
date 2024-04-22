@@ -6,6 +6,10 @@ import DashboardButton from "./components/dashboardbtn";
 import { redirect } from "next/navigation";
 import Footer from "./components/footer";
 
+export const metadata = {
+  title: "Zümi"
+}
+
 export default async function SetupLayout({
   children,
 }: {

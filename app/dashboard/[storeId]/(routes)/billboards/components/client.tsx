@@ -5,10 +5,10 @@ import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import { Plus } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { Billboard } from "@prisma/client";
+import { Products } from "@prisma/client";
 
 interface BillboardClientProps {
-  data: Billboard[];
+  data: Products[];
 }
 
 export const BillboardClient: React.FC<BillboardClientProps> = ({ data }) => {

@@ -44,14 +44,17 @@ type BillboardFormValues = z.infer<typeof formSchema>;
 
 interface BillboardFormProps {
   initialData: Products | null;
+  Categories: Categories[],
 }
 
 export const BillboardForm: React.FC<BillboardFormProps> = ({
   initialData,
+  Categories
 }) => {
   const params = useParams();
   const router = useRouter();
 
+  const [desc, setDesc] = useState("")
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -212,17 +215,20 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
                   <SelectValue placeholder="Kategória" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="1">Lakás</SelectItem>
-                  <SelectItem value="2">Elektronika</SelectItem>
-                  <SelectItem value="3">Sport</SelectItem>
-                  <SelectItem value="4">Ruházat</SelectItem>
-                  <SelectItem value="5">Otthon</SelectItem>
-                  <SelectItem value="6">Egyéb</SelectItem>
+                {Categories.map((category) => (
+    <SelectItem key={category.id} value={category.id}>{category.name}</SelectItem>
+))} 
                 </SelectContent>
               </Select>
             </FormItem>
+            <FormItem>
+              <textarea placeholder="Termék leírása.." className=" outline-2 outline-black/20 rounded-md border border-black/20 p-2" cols={64} onChange={(e) => {
+                setDesc(e.target.value)
+              }}/>
+              <span className="text-sm text-gray-500">Karakterek száma(max 192): {desc.length}</span>
+            </FormItem>
           </div>
-          <Button disabled={loading} className="ml-auto" type="submit">
+          <Button disabled={loading} className="ml-auto mt-2" type="submit">
             {action}
           </Button>
         </form>

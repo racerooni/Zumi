@@ -35,6 +35,7 @@ model Products {
   label      String
   imageUrl   String
   price      Int
+  description String
   category   String
   categories Categories @relation("ProductCategories", fields: [category], references: [id])
   createdAt  DateTime   @default(now())
