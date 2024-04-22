@@ -32,12 +32,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
   label: z.string().min(1),
   imageUrl: z.string().min(1),
   price: z.coerce.number().min(1),
   category: z.string(),
+  description: z.string().min(1),
 });
 
 type BillboardFormValues = z.infer<typeof formSchema>;
@@ -74,6 +76,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       imageUrl: "",
       price: 0,
       category: "",
+      description: "",
     },
   });
 
@@ -205,18 +208,29 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
                   <SelectValue placeholder="Kategória" />
                 </SelectTrigger>
                 <SelectContent>
-                {Categories.map((category) => (
-    <SelectItem key={category.id} value={category.id}>{category.name}</SelectItem>
-))} 
+                  {Categories.map((category) => (
+                    <SelectItem key={category.id} value={category.id}>{category.name}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </FormItem>
-            <FormItem>
-              <textarea placeholder="Termék leírása.." className=" outline-2 outline-black/20 rounded-md border border-black/20 p-2" cols={64} onChange={(e) => {
-                setDesc(e.target.value)
-              }}/>
-              <span className="text-sm text-gray-500">Karakterek száma(max 192): {desc.length}</span>
-            </FormItem>
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Leírás</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      disabled={loading}
+                      placeholder="Termék neve"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
           <Button disabled={loading} className="ml-auto mt-2" type="submit">
             {action}
