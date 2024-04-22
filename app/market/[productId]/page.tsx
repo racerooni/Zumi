@@ -57,10 +57,10 @@ export default function page() {
           </h1>
           <div className="flex space-x-1"></div>
           <p className="text-base text-zinc-500 dark:text-zinc-400">
-            jo minosegu bontatlan ujszeru hangfal
+            {product?.description!}
           </p>
           <p className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
-            {product?.price} Ft.-
+            {product?.price} Ft.-{product?.category!}
           </p>
           <p className="text-xs text-zinc-500 dark:text-zinc-400"></p>
         </div>

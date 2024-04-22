@@ -28,7 +28,9 @@ import prismadb from "@/lib/prismadb";
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -56,6 +58,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
   const params = useParams();
   const router = useRouter();
 
+  const [category, setCategory] = useState("")
   const [desc, setDesc] = useState("")
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -76,7 +79,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       imageUrl: "",
       price: 0,
       category: "",
-      description: "",
+      description: category,
     },
   });
 
@@ -88,6 +91,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
           `/api/${params.storeId}/billboards/${params.billboardId}`,
           data
         );
+        console.log(data)
       } else {
         await axios.post(`/api/${params.storeId}/billboards`, data);
       }
@@ -201,19 +205,35 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
                 </FormItem>
               )}
             />
-            <FormItem>
-              <Select>
-                <FormLabel>Kategória</FormLabel>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Kategória" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Categories.map((category) => (
-                    <SelectItem key={category.id} value={category.id}>{category.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </FormItem>
+            <FormField
+              control={form.control}
+              name="category"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Kategória</FormLabel>
+                  <FormControl>
+                    <Select  {...field}
+                      value={category}
+                      onValueChange={(selectedValue) => {
+                        field.onChange(selectedValue);
+                        setCategory(selectedValue);
+                      }}>
+                      <SelectTrigger className="w-[250px]">
+                        <SelectValue placeholder="Válassz egy kategóriát!" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          {Categories.map((c) => (
+                            <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="description"
