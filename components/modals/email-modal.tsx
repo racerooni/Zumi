@@ -8,11 +8,8 @@ import { Modal } from "../ui/modal";
 import { useStoreModal } from "@/hooks/use-store-modal";
 
 export default function Contact() {
-
   const storeModal = useStoreModal();
-  const [sent, setSent] = useState(false)
-
-
+  const [sent, setSent] = useState(false);
 
   return (
     <Modal
@@ -38,10 +35,9 @@ export default function Contact() {
                   toast.error("Hiba történt!");
                 }
               } else if (sent) {
-                toast.error('Egyszerre csak egy e-mailt küldhet.')
+                toast.error("Egyszerre csak egy e-mailt küldhet.");
               }
-            }
-            }
+            }}
           >
             <input
               type="email"
@@ -58,14 +54,12 @@ export default function Contact() {
               maxLength={2000}
               required
             />
-            <button className="py-2 px-3 bg-blue-600 text-white rounded-md transition duration-300 w-[8rem] h-[3rem] flex justify-center items-center gap-2 hover:scale-110 text-md hover:bg-white hover:text-blue-600 hover:border-2 hover:border-black/10 "
-            >
-              Küldés <IoIosSend />
+            <button className="py-2 px-3 bg-blue-600 text-white rounded-md transition duration-300 w-[8rem] h-[3rem] flex justify-center items-center gap-2 hover:scale-110 text-md hover:bg-white hover:text-blue-600 hover:border-2 hover:border-black/10 ">
+              Küldés
             </button>
           </form>
         </div>
       </section>
     </Modal>
-
   );
 }
