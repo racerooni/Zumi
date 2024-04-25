@@ -35,7 +35,7 @@ export default async function UsersPage() {
   const data = await getData();
 
   return (
-    <div className="container mx-auto py-10 w-full">
+    <div>
       <DataTable columns={columns} data={data} />
     </div>
   );

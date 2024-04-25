@@ -13,9 +13,12 @@ export default async function AdminLayout({
   const { userId } = auth();
 
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen w-screen flex">
       <Sidebar />
+      <div className="w-full h-screen">
       {children}
+      </div>
+
     </div>
   );
 }

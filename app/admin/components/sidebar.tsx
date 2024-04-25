@@ -11,7 +11,7 @@ import {
 
 export function Sidebar() {
   return (
-    <div className="hidden h-full max-h-screen w-64 flex-col border-r bg-gray-100 dark:border-gray-800 dark:bg-gray-900 lg:flex float-left select-none">
+    <div className="hidden h-full max-h-screen w-64 flex-col border-r bg-gray-100 dark:border-gray-800 dark:bg-gray-900 lg:flex select-none">
       <div className="flex h-16 shrink-0 items-center border-b px-6">
         <Link className="flex items-center gap-2 font-semibold" href="#">
           <MountainIcon className="h-6 w-6" />
