@@ -28,6 +28,7 @@ const formSchema = z.object({
   phoneNumber: z.string().min(2),
   city: z.string().min(1),
   email: z.string().min(1),
+  type: z.string(),
 });
 
 export const UserForm = () => {
@@ -42,6 +43,7 @@ export const UserForm = () => {
       phoneNumber: "",
       city: "",
       email: "",
+      type: "Felhasználó",
     },
   });
 
@@ -139,7 +141,7 @@ export const UserForm = () => {
               )}
             />
             <div className="pt-6 space-x-2 flex items-center justify-start w-full">
-              <Button type="submit" disabled={isFilled}>
+              <Button type="submit" disabled={loading}>
                 Mentés
               </Button>
             </div>

@@ -4,8 +4,11 @@ import { ColumnDef } from "@tanstack/react-table";
 
 export type User = {
   id: string;
-  type: "User" | "Admin";
+  type: string;
   email: string;
+  city: string;
+  name: string;
+  phoneNumber: string;
 };
 
 export const columns: ColumnDef<User>[] = [

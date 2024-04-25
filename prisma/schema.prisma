@@ -17,6 +17,7 @@ model User {
   city        String
   phoneNumber String
   email       String
+  type        String @default("Felhasználó")
 }
 
 model store {
@@ -29,17 +30,17 @@ model store {
 }
 
 model Products {
-  id         String     @id @default(uuid())
-  storeId    String
-  store      store      @relation("ProductToStore", fields: [storeId], references: [id])
-  label      String
-  imageUrl   String
-  price      Int
+  id          String     @id @default(uuid())
+  storeId     String
+  store       store      @relation("ProductToStore", fields: [storeId], references: [id])
+  label       String
+  imageUrl    String
+  price       Int
   description String
-  category   String
-  categories Categories @relation("ProductCategories", fields: [category], references: [id])
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+  category    String
+  categories  Categories @relation("ProductCategories", fields: [category], references: [id])
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 
   @@index([storeId])
   @@index([category])
