@@ -10,10 +10,21 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { MailCheck, SeparatorHorizontal, User } from "lucide-react";
 import Separator from "@/app/(root)/components/separator";
+import { useEmailModal } from "@/hooks/use-email-modal";
+import { useStoreModal } from "@/hooks/use-store-modal";
 
 export default function page() {
   const params = useParams();
   const [isLoading, setisLoading] = useState(true);
+  const onOpen = useEmailModal((state) => state.onOpen);
+  const isOpen = useEmailModal((state) => state.isOpen);
+  useEffect(() => {
+    if (!isOpen) {
+      console.log("bb");
+      onOpen();
+    }
+  }, [onOpen, isOpen]);
+
   const productid: string = params.productId.toString();
   const [product, setProduct] = useState<Products | null>(null); // Adjust the type definition here
   useEffect(() => {
@@ -70,9 +81,12 @@ export default function page() {
             <User className="w-12 h-12" />
           </div>
           <SeparatorHorizontal />
-          <div className="w-[24rem] h-36 flex justify-center items-center border-black/20 border rounded-xl flex-col cursor-pointer">
+          <div
+            className="w-[24rem] h-36 flex justify-center items-center border-black/20 border rounded-xl flex-col cursor-pointer"
+            onClick={() => console.log("xd")}
+          >
             <p>Email küldése az eladónak</p>
-            <MailCheck className="w-12 h-12" />
+            <MailCheck className="w-12 h-12" onClick={onOpen} />
           </div>
         </div>
       </div>

@@ -1,65 +1,91 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { sendEmail } from "@/lib/sendEmail";
-
-import toast from "react-hot-toast";
+import { useEmailModal } from "@/hooks/use-email-modal";
 import { Modal } from "../ui/modal";
-import { useStoreModal } from "@/hooks/use-store-modal";
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Form, FormControl, FormLabel, FormMessage } from "../ui/form";
+import { FormField, FormItem } from "../ui/form";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { useState } from "react";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
-export default function Contact() {
-  const storeModal = useStoreModal();
-  const [sent, setSent] = useState(false);
+const formSchema = z.object({
+  name: z.string().min(1),
+});
+
+export const EmailModal = () => {
+  const emailModal = useEmailModal();
+
+  const [loading, setLoading] = useState(false);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+    },
+  });
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      setLoading(true);
+      const response = await axios.post("../api/stores", values);
+      window.location.assign(`${response.data.id}`);
+      toast.success("Bolt létrehozva.");
+    } catch (error) {
+      toast.error("Hiba törtent");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Modal
-      title="E-mail küldése az eladónak"
-      description="Érdeklődj a termékkel kapcsolatban az eladónál."
-      isOpen={storeModal.isOpen}
-      onClose={storeModal.onClose}
+      title="Bolt létrehozása"
+      description="Adj hozzá egy új boltot, hogy kezelhesd a termékeidet"
+      isOpen={emailModal.isOpen}
+      onClose={emailModal.onClose}
     >
-      <section
-        id="contact"
-        className="mt-12 mb-20 sm:mb-28 w-full sm:w-[70%] xl:w-[40%] scroll-mt-16"
-      >
-        <div>
-          <form
-            className="mt-10 flex flex-col"
-            action={async (formData) => {
-              if (!sent) {
-                try {
-                  await sendEmail(formData);
-                  toast.success("E-mail sikeresen elküldve!");
-                  setSent(true);
-                } catch (error) {
-                  toast.error("Hiba történt!");
-                }
-              } else if (sent) {
-                toast.error("Egyszerre csak egy e-mailt küldhet.");
-              }
-            }}
-          >
-            <input
-              type="email"
-              className="h-14 rounded-md border border-black/15 px-2 !focus:outline-none"
-              name="senderEmail"
-              placeholder="Az e-mail címed"
-              maxLength={300}
-              required
-            />
-            <textarea
-              className="h-32 my-3 px-2 py-2 rounded-md border border-black/15 resize-none outline-slate-900"
-              name="senderMsg"
-              placeholder="Üzenet"
-              maxLength={2000}
-              required
-            />
-            <button className="py-2 px-3 bg-blue-600 text-white rounded-md transition duration-300 w-[8rem] h-[3rem] flex justify-center items-center gap-2 hover:scale-110 text-md hover:bg-white hover:text-blue-600 hover:border-2 hover:border-black/10 ">
-              Küldés
-            </button>
-          </form>
+      <div>
+        <div className="space-y-4 py-2 pb-4">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Név*</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={loading}
+                        placeholder="Bolt neve"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage></FormMessage>
+                  </FormItem>
+                )}
+              />
+              <div className="pt-6 space-x-2 flex items-center justify-end w-full">
+                <Button
+                  variant="outline"
+                  onClick={emailModal.onClose}
+                  disabled={loading}
+                >
+                  Mégse
+                </Button>
+                <Button type="submit" disabled={loading}>
+                  Tovább
+                </Button>
+              </div>
+            </form>
+          </Form>
         </div>
-      </section>
+      </div>
     </Modal>
   );
-}
+};

@@ -1,10 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import prismadb from "@/lib/prismadb";
+import { clerkClient } from "@clerk/nextjs";
 import { Activity, Box, CreditCard, DollarSign, Users } from "lucide-react";
 
 export default async function AdminPage() {
   const products = prismadb.products.findMany();
-  const users = prismadb.user.findMany();
+  const users = clerkClient.users.getCount();
 
   return (
     <div className="h-screen w-full p-4">
@@ -26,7 +27,7 @@ export default async function AdminPage() {
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{(await users).length}</div>
+            <div className="text-2xl font-bold">{users}</div>
             <p className="text-xs text-muted-foreground">
               +2 az elmúlt 1 hónapban.
             </p>

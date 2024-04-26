@@ -8,6 +8,7 @@ import {
   DropdownMenuContent,
   DropdownMenu,
 } from "@/components/ui/dropdown-menu";
+import { UserButton } from "@clerk/nextjs";
 
 export function Sidebar() {
   return (
@@ -61,18 +62,7 @@ export function Sidebar() {
               variant="ghost"
             >
               <div className="flex items-center gap-3">
-                <Avatar className="h-8 w-8">
-                  <AvatarImage alt="@shadcn" src="/placeholder-avatar.jpg" />
-                  <AvatarFallback>KD</AvatarFallback>
-                </Avatar>
-                <div className="flex flex-col">
-                  <span className="text-sm font-medium text-gray-900 dark:text-gray-50">
-                    Kolozs Dominik
-                  </span>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">
-                    Admin
-                  </span>
-                </div>
+                <UserButton afterSignOutUrl="/" />
               </div>
               <ChevronRightIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
             </Button>

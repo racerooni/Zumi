@@ -39,11 +39,14 @@ model Products {
   description String
   category    String
   categories  Categories @relation("ProductCategories", fields: [category], references: [id])
+  condition   String
+  conditions  Condition  @relation("ProductCondition", fields: [condition], references: [id])
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 
   @@index([storeId])
   @@index([category])
+  @@index([condition])
   @@map("Billboard")
 }
 
@@ -52,6 +55,12 @@ model Categories {
   name     String
   imageUrl String
   product  Products[] @relation("ProductCategories")
+}
+
+model Condition {
+  id      String     @id @default(uuid())
+  name    String
+  product Products[] @relation("ProductCondition")
 }
 
 model Transactions {
