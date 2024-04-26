@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { Trash } from "lucide-react";
-import { Categories, Products } from "@prisma/client";
+import { Categories, Products, Condition } from "@prisma/client";
 import { useParams, useRouter } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
@@ -42,24 +42,28 @@ const formSchema = z.object({
   price: z.coerce.number().min(1),
   category: z.string(),
   description: z.string().min(1),
+  condition: z.string(),
 });
 
 type BillboardFormValues = z.infer<typeof formSchema>;
 
 interface BillboardFormProps {
   initialData: Products | null;
-  Categories: Categories[],
+  Categories: Categories[];
+  Condition: Condition[];
 }
 
 export const BillboardForm: React.FC<BillboardFormProps> = ({
   initialData,
-  Categories
+  Categories,
+  Condition,
 }) => {
   const params = useParams();
   const router = useRouter();
 
-  const [category, setCategory] = useState("")
-  const [desc, setDesc] = useState("")
+  const [category, setCategory] = useState("");
+  const [condition, setCondition] = useState("");
+  const [desc, setDesc] = useState("");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -80,6 +84,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       price: 0,
       category: "",
       description: category,
+      condition: "",
     },
   });
 
@@ -91,7 +96,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
           `/api/${params.storeId}/billboards/${params.billboardId}`,
           data
         );
-        console.log(data)
+        console.log(data);
       } else {
         await axios.post(`/api/${params.storeId}/billboards`, data);
       }
@@ -126,7 +131,6 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       setOpen(false);
     }
   };
-
 
   return (
     <>
@@ -212,19 +216,23 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
                 <FormItem>
                   <FormLabel>Kategória</FormLabel>
                   <FormControl>
-                    <Select  {...field}
+                    <Select
+                      {...field}
                       value={category}
                       onValueChange={(selectedValue) => {
                         field.onChange(selectedValue);
                         setCategory(selectedValue);
-                      }}>
+                      }}
+                    >
                       <SelectTrigger className="w-[250px]">
                         <SelectValue placeholder="Válassz egy kategóriát!" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
                           {Categories.map((c) => (
-                            <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+                            <SelectItem key={c.id} value={c.id}>
+                              {c.name}
+                            </SelectItem>
                           ))}
                         </SelectGroup>
                       </SelectContent>
@@ -246,6 +254,39 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
                       placeholder="Termék neve"
                       {...field}
                     />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="condition"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Állapot</FormLabel>
+                  <FormControl>
+                    <Select
+                      {...field}
+                      value={condition}
+                      onValueChange={(selectedValue) => {
+                        field.onChange(selectedValue);
+                        setCategory(selectedValue);
+                      }}
+                    >
+                      <SelectTrigger className="w-[250px]">
+                        <SelectValue placeholder="Válassz egy kategóriát!" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          {Condition.map((c) => (
+                            <SelectItem key={c.id} value={c.id}>
+                              {c.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
