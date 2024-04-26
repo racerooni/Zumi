@@ -275,7 +275,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
                       }}
                     >
                       <SelectTrigger className="w-[250px]">
-                        <SelectValue placeholder="Válassz egy kategóriát!" />
+                        <SelectValue placeholder="Add meg a termék állapotát!" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
