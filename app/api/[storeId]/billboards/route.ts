@@ -13,7 +13,7 @@ export async function POST(
 
     const body = await req.json();
 
-    const { label, imageUrl, price, category, description } = body;
+    const { label, imageUrl, price, category, description, condition } = body;
     console.log(label, imageUrl, price, category, description)
 
     if (!userId) {
@@ -51,6 +51,7 @@ export async function POST(
         storeId: params.storeId,
         category,
         description,
+        condition
       }
     });
 
