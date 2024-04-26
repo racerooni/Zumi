@@ -15,7 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { PlusCircleIcon } from "lucide-react";
+import { BanIcon, PlusCircleIcon } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -67,9 +67,14 @@ export function DataTable<TData, TValue>({
                 {row.getVisibleCells().map((cell, index) => (
                   <TableCell key={cell.id}>
                     {index === columns.length - 1 ? (
-                      <Button onClick={handleClick} className="rounded-full">
-                        <PlusCircleIcon />
-                      </Button>
+                      <div className="flex gap-2">
+                        <Button onClick={handleClick} className="rounded-full">
+                          <PlusCircleIcon />
+                        </Button>
+                        <Button className="rounded-full bg-red-500">
+                          <BanIcon />
+                        </Button>
+                      </div>
                     ) : (
                       flexRender(cell.column.columnDef.cell, cell.getContext())
                     )}

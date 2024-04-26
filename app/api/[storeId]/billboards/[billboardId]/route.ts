@@ -74,7 +74,7 @@ export async function PATCH(
 
     const body = await req.json();
 
-    const { label, imageUrl, price } = body;
+    const { label, imageUrl, price, category, description, condition } = body;
 
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 403 });
@@ -110,7 +110,10 @@ export async function PATCH(
       data: {
         label,
         imageUrl,
-        price
+        price,
+        category,
+       description,
+        condition
       }
     });
 
