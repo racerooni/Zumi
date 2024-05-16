@@ -1,4 +1,3 @@
-
 export default async function MarketLayout({
   children,
 }: {
@@ -6,10 +5,7 @@ export default async function MarketLayout({
 }) {
   return (
     <>
-    <div className="bg-gray-50 h-screen w-full">
-    {children}
-    </div>
-
+      <div className="bg-gray-50 w-full">{children}</div>
     </>
   );
 }

@@ -1,16 +1,16 @@
 import BackButton from "./components/backbutton";
 
 export default async function MarketLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    return (
-        <>
-        <div className="h-screen w-full flex justify-center p-4 relative">
-        <BackButton/>
+  return (
+    <>
+      <div className=" w-full flex justify-center p-4 relative">
+        <BackButton />
         {children}
-        </div>
-        </>
-    );
+      </div>
+    </>
+  );
 }
