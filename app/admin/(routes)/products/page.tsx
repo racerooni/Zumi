@@ -1,13 +1,16 @@
-import Product from "@/app/dashboard/[storeId]/(routes)/billboards/components/products";
-import prismadb from "@/lib/prismadb";
-import { clerkClient } from "@clerk/nextjs";
 import React from "react";
-import AdminProduct from "./components/adminproduct";
-import AdminSlider from "./components/adminproduct";
 
-export default async function ProductsPage() {
-  const product = await prismadb.products.findMany({});
-  console.log(product);
+import prismadb from "@/lib/prismadb";
+import { Products } from "@prisma/client";
+import CarouselSlider from "./components/adminproduct";
 
-  return null;
+export default async function Home() {
+  const products = await prismadb.products.findMany({});
+  console.log(products);
+
+  return (
+    <div className="flex flex-col items-center">
+      <CarouselSlider products={products} />
+    </div>
+  );
 }

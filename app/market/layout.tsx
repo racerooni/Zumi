@@ -5,7 +5,7 @@ export default async function MarketLayout({
 }) {
   return (
     <>
-      <div className="bg-gray-50 w-full">{children}</div>
+      <div className="bg-gray-50 w-full min-h-screen">{children}</div>
     </>
   );
 }

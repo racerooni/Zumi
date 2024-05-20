@@ -81,7 +81,7 @@ export const UserForm = () => {
                   <FormControl>
                     <Input
                       disabled={loading}
-                      placeholder="Bolt neve"
+                      placeholder="A te neved"
                       {...field}
                     />
                   </FormControl>
