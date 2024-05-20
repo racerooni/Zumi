@@ -8,11 +8,6 @@ import toast from "react-hot-toast";
 export default function Contact() {
   const [sent, setSent] = useState(false);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setSent(false);
-    }, 10000);
-  }, [sent]);
   return (
     <form
       className="mt-10 flex flex-col"

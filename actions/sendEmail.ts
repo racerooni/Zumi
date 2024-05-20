@@ -32,9 +32,9 @@ export const sendEmail = async (formData: FormData) => {
 
     try{
          resend.emails.send({
-            from: "Portfolio website <onboarding@resend.dev>",
+            from: "ZUMI TERMEK ERTESITES <onboarding@resend.dev>",
             to: "jaczenko.benedek@gmail.com",
-            subject: "Portfolio message",
+            subject: "ZUMI TERMEK ERTESITES",
             reply_to: senderEmail as string,
             text: `Email cím: ${senderEmail} \n Uzenet:${msg}`
         })

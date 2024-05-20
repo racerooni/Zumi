@@ -254,9 +254,6 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
                         disabled={loading}
                         placeholder="Termék leírása (max 255 karakter)"
                         {...field}
-                        onChange={(e) => {
-                          setDescLength(e.target.value);
-                        }}
                       />
                     </FormControl>
                     <FormMessage />
