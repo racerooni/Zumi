@@ -4,6 +4,7 @@ import StoreSwitcher from "./store-switcher";
 import { redirect } from "next/navigation";
 import prismadb from "@/lib/prismadb";
 import UserPageButton from "./ui/userpagebtn";
+import NavbarResponsive from "./component/navbarres";
 
 const Navbar = async () => {
   const { userId } = auth();
@@ -17,13 +18,9 @@ const Navbar = async () => {
   });
   return (
     <div className="border-b">
-      <div className="flex h-16 items-center px-4">
+      <div className="flex h-16 items-center ps-4 justify-between">
         <StoreSwitcher items={stores} />
-        <MainNav className="mx-6" />
-        <div className="ml-auto flex items-center space-x-4">
-          <UserPageButton />
-          <UserButton afterSignOutUrl="/" />
-        </div>
+        <NavbarResponsive userId={userId} />
       </div>
     </div>
   );

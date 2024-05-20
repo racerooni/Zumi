@@ -63,7 +63,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
 
   const [category, setCategory] = useState("");
   const [condition, setCondition] = useState("");
-  const [desc, setDesc] = useState("");
+  const [descLength, setDescLength] = useState("");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -174,7 +174,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
               </FormItem>
             )}
           />
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
             <FormField
               control={form.control}
               name="label"
@@ -242,23 +242,29 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Leírás</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      disabled={loading}
-                      placeholder="Termék neve"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div>
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Leírás</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        disabled={loading}
+                        placeholder="Termék leírása (max 255 karakter)"
+                        {...field}
+                        onChange={(e) => {
+                          setDescLength(e.target.value);
+                        }}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <span></span>
+            </div>
             <FormField
               control={form.control}
               name="condition"
@@ -269,9 +275,9 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
                     <Select
                       {...field}
                       value={condition}
-                      onValueChange={(selectedValue) => {
-                        field.onChange(selectedValue);
-                        setCategory(selectedValue);
+                      onValueChange={(selectedValue2) => {
+                        field.onChange(selectedValue2);
+                        setCondition(selectedValue2);
                       }}
                     >
                       <SelectTrigger className="w-[250px]">

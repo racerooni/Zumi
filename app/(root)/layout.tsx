@@ -7,8 +7,8 @@ import { redirect } from "next/navigation";
 import Footer from "./components/footer";
 
 export const metadata = {
-  title: "Zümi"
-}
+  title: "Zümi",
+};
 
 export default async function SetupLayout({
   children,

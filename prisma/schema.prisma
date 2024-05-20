@@ -17,7 +17,7 @@ model User {
   city        String
   phoneNumber String
   email       String
-  type        String @default("Felhasználó")
+  type        String @default("User")
 }
 
 model store {
